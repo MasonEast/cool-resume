@@ -1,14 +1,14 @@
 {
-  "name": "cool-resume",
+  "name": "aaa",
   "version": "0.1.0",
-  "author": "mason",
   "private": true,
   "dependencies": {
-    "@alilc/lowcode-engine": "^1.0.11",
+    "@craco/craco": "^6.4.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/node": "^18.0.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
     "react": "^18.2.0",
@@ -40,5 +40,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }
