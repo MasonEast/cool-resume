@@ -17,6 +17,8 @@ const BLOCKDATA = {
   d: "联系方式：zhangsanfen@gmail.com | xxxxxxxxxxxx",
 };
 
+const AVATAR = "avatar";
+
 function App() {
   const [layouts, setLayouts] = useState<Layout[]>(LAYOUT);
   const [blockData, setBlockData] =
@@ -29,13 +31,33 @@ function App() {
     ]);
   };
 
-  const handleClick2 = () => {
+  const handleAddDvider = () => {
     const key = String(layouts.length);
     setLayouts([...layouts, { i: key, x: 0, y: 0, w: 6, h: 1 }]);
     setBlockData({
       ...blockData,
       [key]: <p style={{ backgroundColor: "black", height: "100%" }} />,
     });
+  };
+
+  const handleUploadPicture = () => {
+    var reads = new FileReader();
+    const input = document.getElementById("uploadImage") as HTMLInputElement;
+    const f = input.files?.[0] as File;
+
+    reads.readAsDataURL(f);
+    reads.onload = function (e) {
+      if (!blockData[AVATAR]) {
+        setLayouts([...layouts, { i: AVATAR, x: 0, y: 0, w: 2, h: 6 }]);
+      }
+
+      setBlockData({
+        ...blockData,
+        [AVATAR]: (
+          <img className="h-full" src={e.target?.result as string} alt="" />
+        ),
+      });
+    };
   };
 
   const handleLayoutChange = (layout: Layout[]) => {
@@ -48,6 +70,7 @@ function App() {
     e: React.FocusEvent<HTMLParagraphElement>
   ) => {
     const node = e.target as HTMLElement;
+    if (key === AVATAR) return;
     setBlockData({
       ...blockData,
       [key]: node.innerText,
@@ -58,7 +81,15 @@ function App() {
     <div className="App">
       <header className="bg-gray-400">
         <button onClick={handleClick}>加区块</button>
-        <button onClick={handleClick2}>加横杠</button>
+        <button onClick={handleAddDvider}>加横杠</button>
+        <button>
+          <input
+            accept="image/*"
+            id="uploadImage"
+            onChange={handleUploadPicture}
+            type="file"
+          />
+        </button>
       </header>
       <div className="flex justify-between">
         {/* 用来编辑 */}
@@ -81,7 +112,6 @@ function App() {
             </div>
           ))}
         </ResponsiveGridLayout>
-        {/* <div className="w-6/12" style={{ position: "relative" }}> */}
         {/* 用来展示 */}
         <ResponsiveGridLayout
           className="layout w-6/12"
@@ -99,7 +129,6 @@ function App() {
         </ResponsiveGridLayout>
       </div>
     </div>
-    // </div>
   );
 }
 
