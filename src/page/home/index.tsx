@@ -203,7 +203,7 @@ function App() {
         </button>
       </header>
       <div className="flex justify-between">
-        {/* 用来编辑 */}
+        {/* edit */}
         <ResponsiveGridLayout
           className="layout w-6/12"
           layouts={{ lg: layouts }}
@@ -226,7 +226,7 @@ function App() {
             </div>
           ))}
         </ResponsiveGridLayout>
-        {/* 用来展示 */}
+        {/* show */}
         <ResponsiveGridLayout
           className="layout w-6/12"
           layouts={{ lg: layouts }}
