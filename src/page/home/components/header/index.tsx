@@ -1,17 +1,23 @@
 import { Button, Dropdown, Menu, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import { EnhanceLayout } from "../../index";
+import { Data, TYPE } from "../../index";
 
 interface Props {
-  setLayouts: (value: React.SetStateAction<EnhanceLayout[]>) => void;
+  addBlock: ({ type, text, layout }: Data) => void;
 }
 
-export default function Header({ setLayouts }: Props) {
-  const handleAddBlock = () => {
-    // setLayouts((layouts) => [
-    //   ...layouts,
-    //   { i: String(layouts.length), x: 0, y: 0, w: 3, h: 2 },
-    // ]);
+export default function Header({ addBlock }: Props) {
+  const handleAddBlock = (e: any) => {
+    const type = e.key;
+    addBlock({
+      type,
+      layout: {
+        x: 0,
+        y: 0,
+        w: 3,
+        h: 2,
+      },
+    });
   };
 
   const menu = (
@@ -20,19 +26,19 @@ export default function Header({ setLayouts }: Props) {
       items={[
         {
           label: "普通文本",
-          key: "1",
+          key: TYPE.P,
         },
         {
           label: <h1>一级标题</h1>,
-          key: "2",
+          key: TYPE.H1,
         },
         {
           label: <h2>二级标题</h2>,
-          key: "3",
+          key: TYPE.H2,
         },
         {
           label: <h3>三级标题</h3>,
-          key: "4",
+          key: TYPE.H3,
         },
       ]}
     />
