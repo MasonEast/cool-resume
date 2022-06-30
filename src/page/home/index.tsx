@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import { Layout, Responsive, WidthProvider } from "react-grid-layout";
 
@@ -75,7 +75,7 @@ export const TYPE = {
   P: "p",
 };
 
-const BLOCK_STYLE: any = {
+const BLOCK_STYLE: Record<string, React.CSSProperties> = {
   h1: {
     fontSize: "2rem",
     fontWeight: "bold",
