@@ -3,7 +3,7 @@ import { DownOutlined } from "@ant-design/icons";
 import html2pdf from "html2pdf.js";
 import { Data } from "../../index";
 
-import { TYPE } from "../../constants";
+import { TYPE, CONSTANTS } from "../../constants";
 interface Props {
   addBlock: ({ type, text, layout }: Data) => void;
 }
@@ -22,14 +22,50 @@ export default function Header({ addBlock }: Props) {
     });
   };
 
+  const handleAddDvider = () => {
+    addBlock({
+      text: <p style={{ backgroundColor: "#ccc", height: "100%" }} />,
+      layout: {
+        i: `${CONSTANTS.DIVIDER}-${Date.now()}`,
+        x: 0,
+        y: 0,
+        w: 6,
+        h: 1,
+      },
+    });
+  };
+
+  const handleUploadPicture = () => {
+    var reads = new FileReader();
+    const input = document.getElementById("uploadImage") as HTMLInputElement;
+    const f = input.files?.[0] as File;
+
+    reads.readAsDataURL(f);
+    reads.onload = (e) => {
+      addBlock({
+        type: "img",
+        text: (
+          <img className="h-full" src={e.target?.result as string} alt="" />
+        ),
+        layout: {
+          i: `${CONSTANTS.AVATAR}-${Date.now()}`,
+          x: 0,
+          y: 0,
+          w: 2,
+          h: 6,
+        },
+      });
+    };
+  };
+
   const handleExport = () => {
     const element = document.getElementById("preview-box");
 
     const opt = {
       margin: 0,
-      filename: "myfile.pdf",
+      filename: "个人简历.pdf",
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
+      html2canvas: { scale: 2, x: -80 },
       jsPDF: {
         unit: "pt",
         format: "a4",
@@ -37,8 +73,6 @@ export default function Header({ addBlock }: Props) {
         hotfixes: ["px_scaling"],
       },
     };
-
-    // New Promise-based usage:
     html2pdf().set(opt).from(element).save();
   };
 
@@ -67,7 +101,8 @@ export default function Header({ addBlock }: Props) {
   );
 
   return (
-    <header>
+    <header className="fixed w-full bg-white z-10 p-2 shadow-xl flex justify-around">
+      <h3>Cool Resume</h3>
       <Dropdown overlay={menu}>
         <Button>
           <Space>
@@ -77,6 +112,15 @@ export default function Header({ addBlock }: Props) {
         </Button>
       </Dropdown>
       <Button onClick={handleExport}>导出</Button>
+      <button onClick={handleAddDvider}>加横杠</button>
+      <button>
+        <input
+          accept="image/*"
+          id="uploadImage"
+          onChange={handleUploadPicture}
+          type="file"
+        />
+      </button>
     </header>
   );
 }

@@ -1,4 +1,7 @@
-export const AVATAR = "avatar";
+export const CONSTANTS = {
+  AVATAR: "avatar",
+  DIVIDER: "divider",
+};
 
 export const TYPE = {
   H1: "h1",
@@ -7,6 +10,8 @@ export const TYPE = {
   IMG: "img",
   P: "p",
 };
+
+export const NO_Edit_TYPE = ["img"].concat(Object.keys(CONSTANTS));
 
 export const BLOCK_STYLE: Record<string, React.CSSProperties> = {
   h1: {

@@ -19,6 +19,9 @@ module.exports = {
       xl: "1.2rem",
       "2xl": "1.3rem",
     },
+    boxShadow: {
+      xl: "0 0 5px",
+    },
   },
   variants: {
     extend: {},
