@@ -21,6 +21,8 @@ export default function Header({ addBlock }: Props) {
     });
   };
 
+  const handleExport = () => {};
+
   const menu = (
     <Menu
       onClick={handleAddBlock}
@@ -55,6 +57,7 @@ export default function Header({ addBlock }: Props) {
           </Space>
         </Button>
       </Dropdown>
+      <Button onClick={handleExport}>导出</Button>
     </header>
   );
 }

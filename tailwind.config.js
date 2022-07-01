@@ -14,6 +14,11 @@ module.exports = {
       red: colors.rose,
       yellow: colors.amber,
     },
+    fontSize: {
+      lg: "1.1rem",
+      xl: "1.2rem",
+      "2xl": "1.3rem",
+    },
   },
   variants: {
     extend: {},

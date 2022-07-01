@@ -2,7 +2,8 @@ import React, { ReactNode, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import { Layout, Responsive, WidthProvider } from "react-grid-layout";
 
-import { LAYOUT, BLOCK_DATA, BLOCK_STYLE, AVATAR } from "./constants";
+import { BLOCK_STYLE, AVATAR } from "./constants";
+import { LAYOUT, BLOCK_DATA } from "./tpl";
 import Header from "./components/header";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -31,8 +32,6 @@ function App() {
     },
   }: Data) => {
     const key = layout.i || String(Date.now() + layouts.length);
-    console.log(key, "key");
-
     if (layout) {
       layout.i = key;
       setLayouts([...layouts, layout as Layout]);
@@ -49,8 +48,9 @@ function App() {
 
   const handleAddDvider = () => {
     addBlock({
-      text: <p style={{ backgroundColor: "black", height: "100%" }} />,
+      text: <p style={{ backgroundColor: "#ccc", height: "100%" }} />,
       layout: {
+        i: `divider-${Date.now()}`,
         x: 0,
         y: 0,
         w: 6,
@@ -121,6 +121,7 @@ function App() {
       return data;
     });
   };
+  console.log(JSON.stringify(layouts), JSON.stringify(blockData), "---ab");
 
   return (
     <div className="App">
@@ -149,12 +150,12 @@ function App() {
             <div key={item.i}>
               <div
                 onBlur={(e) => handleBlockChange(item.i, e)}
-                contentEditable
+                contentEditable={!item.i.includes("divider")}
                 suppressContentEditableWarning
                 className="bg-gray-200 h-full leading-normal p-2"
-                style={BLOCK_STYLE[blockData[item.i].type || ""]}
+                style={BLOCK_STYLE[blockData[item.i]?.type || ""]}
               >
-                {blockData[item.i].text}
+                {blockData[item.i]?.text}
               </div>
               <CloseOutlined
                 className="absolute top-0 right-0 text-xs cursor-pointer"
@@ -176,9 +177,9 @@ function App() {
             <div key={item.i}>
               <div
                 className=" h-full leading-normal p-2"
-                style={BLOCK_STYLE[blockData[item.i].type || ""]}
+                style={BLOCK_STYLE[blockData[item.i]?.type || ""]}
               >
-                {blockData[item.i].text}
+                {blockData[item.i]?.text}
               </div>
             </div>
           ))}
