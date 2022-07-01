@@ -1,6 +1,10 @@
 import React, { ReactNode, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
-import { Layout, Responsive, WidthProvider } from "react-grid-layout";
+import GridLayout, {
+  Layout,
+  Responsive,
+  WidthProvider,
+} from "react-grid-layout";
 
 import { BLOCK_STYLE, AVATAR } from "./constants";
 import { LAYOUT, BLOCK_DATA } from "./tpl";
@@ -137,13 +141,15 @@ function App() {
           />
         </button>
       </header>
-      <div className="flex justify-between">
+      <div className="flex justify-between bg-gray-300">
         {/* edit */}
         <div className="w-6/12">
-          <ResponsiveGridLayout
-            className="layout w-11/12 m-6 border border-solid shadow "
-            layouts={{ lg: layouts }}
-            margin={[10, 2]}
+          <GridLayout
+            className="layout mx-1 my-4 layout-box bg-white"
+            layout={layouts}
+            // cols={24}
+            width={650}
+            margin={[5, 2]}
             rowHeight={20}
             onLayoutChange={handleLayoutChange}
           >
@@ -164,14 +170,15 @@ function App() {
                 />
               </div>
             ))}
-          </ResponsiveGridLayout>
+          </GridLayout>
         </div>
         {/* show */}
         <div className="w-6/12" id="preview-box">
-          <ResponsiveGridLayout
-            className="layout  w-11/12 m-6 shadow-md"
-            layouts={{ lg: layouts }}
-            margin={[10, 2]}
+          <GridLayout
+            className="layout mx-1 my-4 layout-box bg-white"
+            layout={layouts}
+            width={650}
+            margin={[5, 2]}
             rowHeight={20}
             isDraggable={false}
             isResizable={false}
@@ -186,7 +193,7 @@ function App() {
                 </div>
               </div>
             ))}
-          </ResponsiveGridLayout>
+          </GridLayout>
         </div>
       </div>
     </div>
