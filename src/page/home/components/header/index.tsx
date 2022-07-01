@@ -1,7 +1,8 @@
 import { Button, Dropdown, Menu, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import { Data, TYPE } from "../../index";
+import { Data } from "../../index";
 
+import { TYPE } from "../../constants";
 interface Props {
   addBlock: ({ type, text, layout }: Data) => void;
 }

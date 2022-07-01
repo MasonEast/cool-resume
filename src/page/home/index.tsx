@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import { Layout, Responsive, WidthProvider } from "react-grid-layout";
 
+import { LAYOUT, BLOCK_DATA, BLOCK_STYLE, AVATAR } from "./constants";
 import Header from "./components/header";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -14,87 +15,6 @@ export type Data = {
 export interface EnhanceLayout extends Layout {
   data: Data;
 }
-
-const LAYOUT = [
-  {
-    i: "a",
-    x: 0,
-    y: 0,
-    w: 3,
-    h: 2,
-  },
-  {
-    i: "b",
-    x: 0,
-    y: 1,
-    w: 3,
-    h: 2,
-  },
-  {
-    i: "c",
-    x: 0,
-    y: 2,
-    w: 3,
-    h: 2,
-  },
-  {
-    i: "d",
-    x: 0,
-    y: 2,
-    w: 3,
-    h: 2,
-  },
-];
-
-const BLOCK_DATA = {
-  a: {
-    text: "张三丰/男/1788",
-    type: "p",
-  },
-  b: {
-    text: "武林宗师大学/太极拳系",
-    type: "p",
-  },
-  c: {
-    text: "工作年限：288年",
-    type: "p",
-  },
-  d: {
-    text: "联系方式：zhangsanfen@gmail.com | xxxxxxxxxxxx",
-    type: "p",
-  },
-};
-
-const AVATAR = "avatar";
-
-export const TYPE = {
-  H1: "h1",
-  H2: "h2",
-  H3: "h3",
-  IMG: "img",
-  P: "p",
-};
-
-const BLOCK_STYLE: Record<string, React.CSSProperties> = {
-  h1: {
-    fontSize: "2rem",
-    fontWeight: "bold",
-    lineHeight: "1.5rem",
-  },
-  h2: {
-    fontSize: "1.6rem",
-    fontWeight: "bold",
-    lineHeight: "1.5rem",
-  },
-  h3: {
-    fontSize: "1.2rem",
-    fontWeight: "bold",
-    lineHeight: "1.5rem",
-  },
-  p: {
-    lineHeight: "1.5rem",
-  },
-};
 
 function App() {
   const [layouts, setLayouts] = useState<Layout[]>(LAYOUT);
@@ -110,7 +30,7 @@ function App() {
       h: 1,
     },
   }: Data) => {
-    const key = layout.i || String(layouts.length);
+    const key = layout.i || String(Date.now() + layouts.length);
     console.log(key, "key");
 
     if (layout) {
@@ -188,6 +108,20 @@ function App() {
     });
   };
 
+  const handleDeleteBlock = (key: string) => {
+    const i = layouts.findIndex((item) => item.i === key);
+    setLayouts((pre) => {
+      const arr = [...pre];
+      arr.splice(i, 1);
+      return arr;
+    });
+    setBlockData((pre) => {
+      const data = { ...pre };
+      delete data[key];
+      return data;
+    });
+  };
+
   return (
     <div className="App">
       <Header addBlock={addBlock} />
@@ -222,7 +156,10 @@ function App() {
               >
                 {blockData[item.i].text}
               </div>
-              <CloseOutlined className="absolute top-0 right-0" />
+              <CloseOutlined
+                className="absolute top-0 right-0 text-xs cursor-pointer"
+                onClick={() => handleDeleteBlock(item.i)}
+              />
             </div>
           ))}
         </ResponsiveGridLayout>
