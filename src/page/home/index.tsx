@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, CopyOutlined } from "@ant-design/icons";
 import GridLayout, { Layout } from "react-grid-layout";
 
 import { BLOCK_STYLE, NO_Edit_TYPE } from "./constants";
@@ -60,6 +60,18 @@ function App() {
     });
   };
 
+  const handleCopyBlock = (key: string) => {
+    const i = layouts.findIndex((item) => item.i === key);
+    addBlock({
+      type: blockData[key].type,
+      text: blockData[key].text,
+      layout: {
+        ...layouts[i],
+        i: layouts[i].i + Date.now(),
+      },
+    });
+  };
+
   const handleDeleteBlock = (key: string) => {
     const i = layouts.findIndex((item) => item.i === key);
     setLayouts((pre) => {
@@ -85,7 +97,7 @@ function App() {
       <div className="flex justify-between bg-gray-300 py-20">
         {/* edit */}
         <div className="w-6/12">
-          <div className="layout mx-1 my-4 layout-box bg-white p-2">
+          <div className="layout mx-1 my-4 layout-box bg-white p-2 min-h-screen">
             <GridLayout
               layout={layouts}
               cols={24}
@@ -105,8 +117,12 @@ function App() {
                   >
                     {blockData[item.i]?.text}
                   </div>
+                  <CopyOutlined
+                    className="absolute top-0 left-0 text-localxs cursor-pointer"
+                    onClick={() => handleCopyBlock(item.i)}
+                  />
                   <CloseOutlined
-                    className="absolute top-0 right-0 text-xs cursor-pointer"
+                    className="absolute top-0 right-0 text-localxs cursor-pointer"
                     onClick={() => handleDeleteBlock(item.i)}
                   />
                 </div>
@@ -116,7 +132,7 @@ function App() {
         </div>
         {/* show */}
         <div className="w-6/12">
-          <div className="layout mx-1 my-4 layout-box bg-white p-2">
+          <div className="layout mx-1 my-4 layout-box bg-white p-2 min-h-screen">
             <div id="preview-box">
               <GridLayout
                 layout={layouts}

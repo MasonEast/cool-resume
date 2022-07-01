@@ -1,6 +1,7 @@
 import { Button, Dropdown, Menu, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import html2pdf from "html2pdf.js";
+import Logo from "../../../../assets/logo.png";
 import { Data } from "../../index";
 
 import { TYPE, CONSTANTS } from "../../constants";
@@ -11,26 +12,26 @@ interface Props {
 export default function Header({ addBlock }: Props) {
   const handleAddBlock = (e: any) => {
     const type = e.key;
+    if (type === TYPE.DIVIDER) {
+      addBlock({
+        text: <p style={{ backgroundColor: "#ccc", height: "100%" }} />,
+        layout: {
+          i: `${CONSTANTS.DIVIDER}-${Date.now()}`,
+          x: 0,
+          y: 0,
+          w: 24,
+          h: 1,
+        },
+      });
+      return;
+    }
     addBlock({
       type,
       layout: {
         x: 0,
         y: 0,
-        w: 3,
+        w: 12,
         h: 2,
-      },
-    });
-  };
-
-  const handleAddDvider = () => {
-    addBlock({
-      text: <p style={{ backgroundColor: "#ccc", height: "100%" }} />,
-      layout: {
-        i: `${CONSTANTS.DIVIDER}-${Date.now()}`,
-        x: 0,
-        y: 0,
-        w: 6,
-        h: 1,
       },
     });
   };
@@ -85,6 +86,10 @@ export default function Header({ addBlock }: Props) {
           key: TYPE.P,
         },
         {
+          label: "---分割线---",
+          key: TYPE.DIVIDER,
+        },
+        {
           label: <h1>一级标题</h1>,
           key: TYPE.H1,
         },
@@ -101,26 +106,34 @@ export default function Header({ addBlock }: Props) {
   );
 
   return (
-    <header className="fixed w-full bg-white z-10 p-2 shadow-xl flex justify-around">
-      <h3>Cool Resume</h3>
-      <Dropdown overlay={menu}>
-        <Button>
-          <Space>
-            添加区块
-            <DownOutlined className="leading-4" />
-          </Space>
+    <header className="fixed w-full bg-white z-10 py-2 px-10 shadow-xl flex justify-between">
+      <h3 className="w-2/12">
+        <img className="h-8" src={Logo} alt="" />
+      </h3>
+
+      <div className="w-full">
+        <Dropdown overlay={menu}>
+          <Button type="text">
+            <Space>
+              添加区块
+              <DownOutlined className="leading-6" />
+            </Space>
+          </Button>
+        </Dropdown>
+        <Button type="text">
+          <input
+            className="hidden"
+            accept="image/*"
+            id="uploadImage"
+            onChange={handleUploadPicture}
+            type="file"
+          />
+          <label htmlFor="uploadImage">上传图片</label>
         </Button>
-      </Dropdown>
-      <Button onClick={handleExport}>导出</Button>
-      <button onClick={handleAddDvider}>加横杠</button>
-      <button>
-        <input
-          accept="image/*"
-          id="uploadImage"
-          onChange={handleUploadPicture}
-          type="file"
-        />
-      </button>
+      </div>
+      <Button type="dashed" onClick={handleExport}>
+        导出PDF
+      </Button>
     </header>
   );
 }

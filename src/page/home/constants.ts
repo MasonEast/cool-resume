@@ -9,6 +9,7 @@ export const TYPE = {
   H3: "h3",
   IMG: "img",
   P: "p",
+  DIVIDER: "divider",
 };
 
 export const NO_Edit_TYPE = ["img"].concat(Object.keys(CONSTANTS));

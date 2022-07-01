@@ -15,6 +15,7 @@ module.exports = {
       yellow: colors.amber,
     },
     fontSize: {
+      localxs: "0.5rem",
       lg: "1.1rem",
       xl: "1.2rem",
       "2xl": "1.3rem",
