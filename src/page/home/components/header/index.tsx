@@ -1,5 +1,6 @@
 import { Button, Dropdown, Menu, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import html2pdf from "html2pdf.js";
 import { Data } from "../../index";
 
 import { TYPE } from "../../constants";
@@ -21,7 +22,25 @@ export default function Header({ addBlock }: Props) {
     });
   };
 
-  const handleExport = () => {};
+  const handleExport = () => {
+    const element = document.getElementById("preview-box");
+
+    const opt = {
+      margin: 0,
+      filename: "myfile.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: {
+        unit: "pt",
+        format: "a4",
+        orientation: "portrait",
+        hotfixes: ["px_scaling"],
+      },
+    };
+
+    // New Promise-based usage:
+    html2pdf().set(opt).from(element).save();
+  };
 
   const menu = (
     <Menu

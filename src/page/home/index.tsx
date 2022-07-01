@@ -139,51 +139,55 @@ function App() {
       </header>
       <div className="flex justify-between">
         {/* edit */}
-        <ResponsiveGridLayout
-          className="layout w-6/12"
-          layouts={{ lg: layouts }}
-          margin={[10, 2]}
-          rowHeight={20}
-          onLayoutChange={handleLayoutChange}
-        >
-          {layouts.map((item) => (
-            <div key={item.i}>
-              <div
-                onBlur={(e) => handleBlockChange(item.i, e)}
-                contentEditable={!item.i.includes("divider")}
-                suppressContentEditableWarning
-                className="bg-gray-200 h-full leading-normal p-2"
-                style={BLOCK_STYLE[blockData[item.i]?.type || ""]}
-              >
-                {blockData[item.i]?.text}
+        <div className="w-6/12">
+          <ResponsiveGridLayout
+            className="layout w-11/12 m-6 border border-solid shadow "
+            layouts={{ lg: layouts }}
+            margin={[10, 2]}
+            rowHeight={20}
+            onLayoutChange={handleLayoutChange}
+          >
+            {layouts.map((item) => (
+              <div key={item.i}>
+                <div
+                  onBlur={(e) => handleBlockChange(item.i, e)}
+                  contentEditable={!item.i.includes("divider")}
+                  suppressContentEditableWarning
+                  className="bg-gray-200 h-full leading-normal p-2"
+                  style={BLOCK_STYLE[blockData[item.i]?.type || ""]}
+                >
+                  {blockData[item.i]?.text}
+                </div>
+                <CloseOutlined
+                  className="absolute top-0 right-0 text-xs cursor-pointer"
+                  onClick={() => handleDeleteBlock(item.i)}
+                />
               </div>
-              <CloseOutlined
-                className="absolute top-0 right-0 text-xs cursor-pointer"
-                onClick={() => handleDeleteBlock(item.i)}
-              />
-            </div>
-          ))}
-        </ResponsiveGridLayout>
+            ))}
+          </ResponsiveGridLayout>
+        </div>
         {/* show */}
-        <ResponsiveGridLayout
-          className="layout w-6/12"
-          layouts={{ lg: layouts }}
-          margin={[10, 2]}
-          rowHeight={20}
-          isDraggable={false}
-          isResizable={false}
-        >
-          {layouts.map((item) => (
-            <div key={item.i}>
-              <div
-                className=" h-full leading-normal p-2"
-                style={BLOCK_STYLE[blockData[item.i]?.type || ""]}
-              >
-                {blockData[item.i]?.text}
+        <div className="w-6/12" id="preview-box">
+          <ResponsiveGridLayout
+            className="layout  w-11/12 m-6 shadow-md"
+            layouts={{ lg: layouts }}
+            margin={[10, 2]}
+            rowHeight={20}
+            isDraggable={false}
+            isResizable={false}
+          >
+            {layouts.map((item) => (
+              <div key={item.i}>
+                <div
+                  className=" h-full leading-normal p-2"
+                  style={BLOCK_STYLE[blockData[item.i]?.type || ""]}
+                >
+                  {blockData[item.i]?.text}
+                </div>
               </div>
-            </div>
-          ))}
-        </ResponsiveGridLayout>
+            ))}
+          </ResponsiveGridLayout>
+        </div>
       </div>
     </div>
   );
