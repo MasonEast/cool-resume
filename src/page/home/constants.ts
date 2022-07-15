@@ -1,3 +1,8 @@
+/*
+ * @Description: 
+ * @Date: 2022-07-02 17:42:58
+ * @Author: mason
+ */
 export const CONSTANTS = {
   AVATAR: "avatar",
   DIVIDER: "divider",
@@ -12,7 +17,7 @@ export const TYPE = {
   DIVIDER: "divider",
 };
 
-export const NO_Edit_TYPE = ["img"].concat(Object.keys(CONSTANTS));
+export const NO_Edit_TYPE = ["img"].concat(Object.values(CONSTANTS));
 
 export const BLOCK_STYLE: Record<string, React.CSSProperties> = {
   h1: {
