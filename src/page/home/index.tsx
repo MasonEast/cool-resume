@@ -1,10 +1,10 @@
-import React, { ReactNode, useState } from "react";
-import { CloseOutlined, CopyOutlined } from "@ant-design/icons";
-import GridLayout, { Layout } from "react-grid-layout";
+import React, { ReactNode, useState } from 'react';
+import { CloseOutlined, CopyOutlined } from '@ant-design/icons';
+import GridLayout, { Layout } from 'react-grid-layout';
 
-import { BLOCK_STYLE, NO_Edit_TYPE } from "./constants";
-import { LAYOUT, BLOCK_DATA } from "./tpl";
-import Header from "./components/header";
+import { BLOCK_STYLE, NO_Edit_TYPE } from './constants';
+import { LAYOUT, BLOCK_DATA } from './tpl2';
+import Header from './components/header';
 
 export type Data = {
   text?: ReactNode;
@@ -20,8 +20,8 @@ function App() {
   const [blockData, setBlockData] = useState<Record<string, Data>>(BLOCK_DATA);
 
   const addBlock = ({
-    type = "p",
-    text = "",
+    type = 'p',
+    text = '',
     layout = {
       x: 0,
       y: 0,
@@ -85,10 +85,10 @@ function App() {
       return data;
     });
   };
-  console.log(JSON.stringify(layouts), JSON.stringify(blockData), "---ab");
+  console.log(JSON.stringify(layouts), JSON.stringify(blockData), '---ab');
 
   const isContentEditable = (key: string) => {
-    return !NO_Edit_TYPE.includes(key.split("-")[0]);
+    return !NO_Edit_TYPE.includes(key.split('-')[0]);
   };
 
   return (
@@ -113,7 +113,7 @@ function App() {
                     contentEditable={isContentEditable(item.i)}
                     suppressContentEditableWarning
                     className="bg-gray-200 h-full leading-normal p-2"
-                    style={BLOCK_STYLE[blockData[item.i]?.type || ""]}
+                    style={BLOCK_STYLE[blockData[item.i]?.type || '']}
                   >
                     {blockData[item.i]?.text}
                   </div>
@@ -147,7 +147,7 @@ function App() {
                   <div key={item.i}>
                     <div
                       className=" h-full leading-normal p-2"
-                      style={BLOCK_STYLE[blockData[item.i]?.type || ""]}
+                      style={BLOCK_STYLE[blockData[item.i]?.type || '']}
                     >
                       {blockData[item.i]?.text}
                     </div>
